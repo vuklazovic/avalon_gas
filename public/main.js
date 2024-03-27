@@ -1,5 +1,6 @@
 const card = document.querySelector(".card__inner");
 counter=0
+
 player_count=0
 player_number=0
 usernames=[]
