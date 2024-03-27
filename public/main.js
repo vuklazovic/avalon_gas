@@ -7,6 +7,7 @@ roles=[]
 card.addEventListener("click", function (e) {
   card.classList.toggle('is-flipped');
   tekst_karta=document.getElementById('tekst_karta')
+  role=document.getElementById('tekst_role')
   if(counter%2==0)
   {
     my_name=usernames[player_count]
@@ -16,15 +17,18 @@ card.addEventListener("click", function (e) {
     console.log(my_role)
     if(my_role==="seljak")
     {
-      tekst_karta.innerHTML="ti si ljakse"
+      tekst_karta.innerHTML="ti si ljakse, ti si beskoristan"
+      role.innerHTML="LJakse"
     }
     if(my_role==="oberon")
     {
+      role.innerHTML="Oberon"
       tekst_karta.innerHTML="ti si oberon, srecno"
     }
     if(my_role==="persival")
     {
-      tekst="ti si persival, moguci merlini su "
+      role.innerHTML="Persival"
+      tekst="ti si persival, moguci merlini su, pomozi pravom merlinu"
       for(var i=0;i<=10;i++)
       {
           if(roles[i]=='merlin' || roles[i]=='morgana')
@@ -37,6 +41,8 @@ card.addEventListener("click", function (e) {
     }
     if(my_role==="merlin")
     {
+      role.innerHTML="Merlin"
+
       tekst="Ti si Merlin, losi su : "
       for(var i=0;i<=10;i++)
       {
@@ -51,7 +57,9 @@ card.addEventListener("click", function (e) {
     }
     if(my_role==="morgana")
     {
-      tekst="Ti si Morgana, losi su : "
+      role.innerHTML="Morgana"
+
+      tekst="Ti si Morgana (pravi se da si merlin), losi su : "
       for(var i=0;i<=10;i++)
       {
           if(roles[i]=='assasin' || roles[i]=='los' || roles[i]=='mordred')
@@ -69,7 +77,9 @@ card.addEventListener("click", function (e) {
 
     if(my_role==="assasin")
     {
-      tekst="Ti si Assasin, losi su : "
+      role.innerHTML="Assasin"
+
+      tekst="Ti si Assasin ( ubi merlina ), losi su : "
       for(var i=1;i<=10;i++)
       {
           if(roles[i]=='morgana' || roles[i]=='los' || roles[i]=='mordred')
@@ -84,6 +94,8 @@ card.addEventListener("click", function (e) {
     }
    if(my_role==="mordred")
    {
+    role.innerHTML="Mordred"
+
     tekst="Ti si MORDRED :D, losi su : "
     for(var i=1;i<=10;i++)
     {
@@ -97,6 +109,8 @@ card.addEventListener("click", function (e) {
    }
    if(my_role==="los")
    {
+    role.innerHTML="Los Generik"
+
     tekst="Ti si los, losi su : "
     for(var i=1;i<=10;i++)
     {
