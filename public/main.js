@@ -9,6 +9,7 @@ card.addEventListener("click", function (e) {
   card.classList.toggle('is-flipped');
   tekst_karta=document.getElementById('tekst_karta')
   role=document.getElementById('tekst_role')
+  roles.push("otkrivanje")
   if(counter%2==0)
   {
     my_name=usernames[player_count]
@@ -16,6 +17,7 @@ card.addEventListener("click", function (e) {
     is_mordred_here=0
     console.log(my_name)
     console.log(my_role)
+   
     if(my_role==="seljak")
     {
       tekst_karta.innerHTML="ti si ljakse, ti si beskoristan"
@@ -81,7 +83,7 @@ card.addEventListener("click", function (e) {
       role.innerHTML="Assasin"
 
       tekst="Ti si Assasin ( ubi merlina ), losi su : "
-      for(var i=1;i<=10;i++)
+      for(var i=0;i<=10;i++)
       {
           if(roles[i]=='morgana' || roles[i]=='los' || roles[i]=='mordred')
           {
@@ -98,7 +100,7 @@ card.addEventListener("click", function (e) {
     role.innerHTML="Mordred"
 
     tekst="Ti si MORDRED :D, losi su : "
-    for(var i=1;i<=10;i++)
+    for(var i=0;i<=10;i++)
     {
       if(roles[i]=='morgana' || roles[i]=='los' || roles[i]=='assasin')
       {
@@ -113,7 +115,7 @@ card.addEventListener("click", function (e) {
     role.innerHTML="Los Generik"
 
     tekst="Ti si los, losi su : "
-    for(var i=1;i<=10;i++)
+    for(var i=0;i<=10;i++)
     {
       if(roles[i]=='morgana' || roles[i]=='mordred' || roles[i]=='assasin')
       {
@@ -123,12 +125,29 @@ card.addEventListener("click", function (e) {
     tekst=tekst.slice(0, -2);
     tekst_karta.innerHTML=tekst
    }
-   
+
+   if(roles[player_count]=="otkrivanje")
+   {
+    for(var i=0;i<=10;i++)
+    {
+      if(roles[i]=='merlin')
+      {
+        index=i
+      }
+    }
+    tekst_karta.innerHTML="MERLIN JE "+usernames[index]
+   }
     player_count+=1
   }
   else
   {
+   
     document.getElementById("name").innerHTML=usernames[player_count]
+    if(player_count==player_number)
+    {
+      document.getElementById("name").innerHTML="OTKIJ MERLINA"
+      document.getElementsByClassName('card__face--front')[0].style.backgroundImage='linear-gradient(to bottom right, var(--red), var(--red2))'
+    }
   }
   
   counter+=1
