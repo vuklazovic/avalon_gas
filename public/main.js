@@ -31,7 +31,7 @@ card.addEventListener("click", function (e) {
     if(my_role==="persival")
     {
       role.innerHTML="Persival"
-      tekst="ti si persival, moguci merlini su, pomozi pravom merlinu"
+      tekst="ti si persival, pomozi pravom merlinu, moguci merlini su : "
       for(var i=0;i<=10;i++)
       {
           if(roles[i]=='merlin' || roles[i]=='morgana')
@@ -157,49 +157,68 @@ card.addEventListener("click", function (e) {
 
 function start()
 {
+  usernames = [];
+  player_number = 0;
 
   for(var i=1;i<=10;i++)
   {
       input=document.getElementById("player"+i.toString())
-      usernames.push(input.value)
-      if(input.value!="") player_number+=1
+      usernames.push(input.value.trim())
+      if(input.value.trim()!="") player_number++;
   }
 
-  if(player_number<5) {}
-  if(player_number==5) {
-    roles=["seljak","merlin","persival","morgana","assasin"]
-    shuffle(roles)
-  }
-  if(player_number==6) {
-    roles=["seljak","seljak","merlin","persival","morgana","assasin"]
-    shuffle(roles)
-  }
-  if(player_number==7) 
-  {
-    roles=["seljak","seljak","merlin","persival","morgana","assasin","oberon"]
-    shuffle(roles)
+  sessionStorage.setItem("usernames", JSON.stringify(usernames));
+  sessionStorage.setItem("player_number", player_number);
 
+  if (player_number < 5) {
+      alert("Minimum 5 igraca");
+      return;
   }
-  if(player_number==8) {
-    roles=["seljak","seljak","merlin","persival","morgana","assasin","los",'seljak']
-    shuffle(roles)
-  }
-  if(player_number==9) {
-    roles=["seljak","seljak","merlin","persival","morgana","assasin","mordred",'seljak','seljak']
-    shuffle(roles)
-  }
-  if(player_number==10) {
-    roles=["seljak","seljak","merlin","persival","morgana","assasin","oberon",'mordred','seljak','seljak']
-    shuffle(roles)
-  }
+
+
+  if (player_number === 5) roles = ["seljak", "merlin", "persival", "morgana", "assasin"];
+  else if (player_number === 6) roles = ["seljak", "seljak", "merlin", "persival", "morgana", "assasin"];
+  else if (player_number === 7) roles = ["seljak", "seljak", "merlin", "persival", "morgana", "assasin", "oberon"];
+  else if (player_number === 8) roles = ["seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "mordred"];
+  else if (player_number === 9) roles = ["seljak", "seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "mordred"];
+  else roles = ["seljak", "seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "oberon", "mordred"];
+
+  shuffle(roles);
 
   document.getElementById('inputi').style.display='none'
   document.getElementById("name").innerHTML=usernames[player_count]
   document.getElementById('karta').style.display='block'
+  document.getElementById('restart-container').style.display = 'block';
   console.log(usernames)
   console.log(roles)
   
 
+}
+
+function restartGame() {
+  // Fetch saved data
+  const savedNames = JSON.parse(sessionStorage.getItem("usernames"));
+  player_number = parseInt(sessionStorage.getItem("player_number"), 10);
+
+  if (savedNames && savedNames.length > 0) {
+    usernames = savedNames;
+    roles = []; // Reset roles for a new game
+
+    if (player_number === 5) roles = ["seljak", "merlin", "persival", "morgana", "assasin"];
+    if (player_number === 6) roles = ["seljak", "seljak", "merlin", "persival", "morgana", "assasin"];
+    if (player_number === 7) roles = ["seljak", "seljak", "merlin", "persival", "morgana", "assasin", "oberon"];
+    if (player_number === 8) roles = ["seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "mordred"];
+    if (player_number === 9) roles = ["seljak", "seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "mordred"];
+    if (player_number === 10) roles = ["seljak", "seljak", "seljak", "seljak", "merlin", "persival", "morgana", "assasin", "oberon", "mordred"];
+
+    shuffle(roles); // Shuffle roles for the new game
+
+    player_count = 0; // Reset player counter
+    document.getElementById("name").innerHTML = usernames[player_count];
+    document.getElementById("karta").style.display = "block";
+    document.getElementById("inputi").style.display = "none";
+    console.log("Restarting game with: ", usernames, roles);
+  }
 }
 
 
